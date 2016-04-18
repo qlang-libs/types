@@ -66,3 +66,7 @@ Slice = class {
 		}
 	}
 }
+
+NewSlice = fn(t) {
+	return new Slice(t)
+}
