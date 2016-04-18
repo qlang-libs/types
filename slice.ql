@@ -4,7 +4,8 @@ Slice = class {
 	// Example:
 	//   slice = new("int")
 	fn _init(t) {
-		set(this, "items", slice(t, 0, 0), "sType", t)
+		this.sType = t
+		this.items = slice(t, 0, 0)
 	}	
 
 	// fetch gets the element with the given index and returns it.
@@ -30,7 +31,7 @@ Slice = class {
 
 	// push adds the given element at the end of this.items.
 	fn push(item) {
-		set(this, "items", append(this.items, item)) 
+		this.items = append(this.items, item)
 		return this
 	}
 
@@ -41,7 +42,7 @@ Slice = class {
 			return nil
 		} else {
 			e = this.items[this.length() - 1]
-			set(this, "items", this.items[:this.length()-1])
+			this.items = this.items[:this.length()-1]
 			return e
 		}
 	}
@@ -49,9 +50,9 @@ Slice = class {
 	// shift adds the given element at the head of this.items.
 	fn shift(element) {
 		items = slice(this.sType, this.length() + 1, this.capacity() + 2)
-		set(items, 0, element)
+		items[0] = element
 		copy(items[1:], this.items)
-		set(this, "items", items)
+		this.items = items
 		return this
 	}
 
@@ -61,12 +62,8 @@ Slice = class {
 			return nil
 		} else {
 			e = this.items[0]
-			set(this, "items", this.items[1:])
+			this.items = this.items[1:]
 			return e
 		}
 	}
-}
-
-NewSlice = fn(t) {
-	return new Slice(t)
 }

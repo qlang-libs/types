@@ -1,3 +1,3 @@
 include "slice.ql"
 
-export NewSlice
+export Slice
