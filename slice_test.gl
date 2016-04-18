@@ -1,0 +1,102 @@
+include "slice.ql"
+
+makeIntSlice = fn() {
+	return new Slice("int")
+}
+
+// new
+if makeIntSlice() == undefined {
+	println("Can not create a new Slice")
+}
+
+// empty
+fn {
+	slice = makeIntSlice()
+
+	if !slice.empty() {
+		println("Can not detect the slice is empty")
+	}
+}
+
+// fetch out of range
+fn {
+	slice = makeIntSlice()
+
+	defer fn {
+		err = recover()
+		if err == nil {
+			println("Can not panic when index out of range")
+		}
+	} 
+
+	slice.fetch(1)
+}
+
+// push 
+fn {
+	slice = makeIntSlice()
+	slice.push(1)
+
+	if len(slice.items) != 1 {
+		println("Can not push a element into items")
+	} elif slice.items[0] != 1 {
+		println("Can not push 1 into items, items[0] is", slice.items[0])
+	}
+}
+
+// length
+fn {
+	slice = makeIntSlice()
+	slice.push(1)
+
+	if slice.length() != len(slice.items) {
+		println("Can not push into items")
+	}
+}
+
+// fetch
+fn {
+	slice = makeIntSlice()
+	slice.push(1)
+
+	if slice.fetch(0) != 1 {
+		println("Can not fetch element indexed with 0")
+	}
+}
+
+// pop
+fn {
+	slice = makeIntSlice()
+	slice.push(1).push(2)
+	if slice.pop() != 2 {
+		println("Can not pop the last element")
+	}
+
+	if slice.length() != 1 {
+		println("Can not remove the last element")
+	}	
+}
+
+// shift
+fn {
+	slice = makeIntSlice()
+	slice.push(1).push(2).shift(0)
+
+	if slice.length() != 3 {
+		println("Can not shift a element into items")
+	} elif slice.fetch(0) != 0 {
+		println("Can not shift 0 into items, items[0] is", slice.fetch(0))
+	}
+}
+
+// unshift
+fn {
+	slice = makeIntSlice()
+	element = slice.push(1).push(2).unshift()
+
+	if slice.length() != 1 {
+		println("Can not unshift a element from items")
+	} elif element != 1 {
+		println("Can not shift 0 into items, items[0] is", element)
+	}
+}
