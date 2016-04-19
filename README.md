@@ -17,11 +17,24 @@ println(books.length(), books.empty()) // Outputs: 0 true
 
 // use books like a stack
 books.push("The Little Prince").push("Pi")
-println(books.pop()) // Outputs: "Pi"
+println(books.pop()) // Outputs: Pi
 
 // use books like a queue
 books.shift("Pi")
-println(books.unshift()) // Outputs: "Pi"
+println(books.unshift()) // Outputs: Pi
+
+// traversing to get new Slice
+books.push("Pi")
+newBooks = books.mapping(fn(i, a) {
+	return "<" + a + ">"
+})
+println(newBooks) // Outputs: [<The Little Prince> <Pi>]
+
+// collect some items into a new Slice
+newBooks = books.collect(fn(i, a) {
+	return a == "<Pi>"
+})
+println(newBooks) // Outputs: [<Pi>]
 ```
 
 ### Map
