@@ -100,3 +100,29 @@ fn {
 		println("Can not shift 0 into items, items[0] is", element)
 	}
 }
+
+// collect
+fn {
+	slice = makeIntSlice()
+	slice.push(1).push(2)
+	newSlice = slice.collect(fn(i, a) {
+		return a%2 == 0	
+	})
+
+	if newSlice.length() != 1 || newSlice.items[0] != 2 {
+		println("can not collect, result is:", newSlice.items)
+	}
+}
+
+// mapping
+fn {
+	slice = makeIntSlice()
+	slice.push(1).push(2)
+	newSlice = slice.mapping(fn(i, a) {
+		return a*a		
+	})
+
+	if newSlice.items[0] != 1 || newSlice.items[1] != 4 {
+		println("can not mapping, result is:", newSlice.items)
+	}
+}

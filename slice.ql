@@ -1,3 +1,4 @@
+import "expectations" as expect
 // Slice contains a slice and defines methods to manipulation.
 Slice = class {
 	// Slice need a string to specify the type of elements.
@@ -65,5 +66,35 @@ Slice = class {
 			this.items = this.items[1:]
 			return e
 		}
+	}
+
+	fn collect(enumerator) {
+		if !expect.isFn(enumerator) {
+			panic("Slice#collect: parameter must be a fn")
+		}
+
+		newSlice = new Slice(this.sType)
+
+		for i, item = range this.items {
+			if enumerator(i, item) {
+				newSlice.push(item)
+			}
+		}
+
+		return newSlice
+	}
+
+	fn mapping(enumerator) {
+		if !expect.isFn(enumerator) {
+			panic("Slice#mapping: parameter must be a fn")
+		}
+
+		newSlice = new Slice(this.sType)
+
+		for i, item = range this.items {
+			newSlice.push(enumerator(i, item))
+		}
+
+		return newSlice
 	}
 }

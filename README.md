@@ -21,7 +21,7 @@ println(books.pop()) // Outputs: "Pi"
 
 // use books like a queue
 books.shift("Pi")
-println(books.unshift()) // Outputs: "pi"
+println(books.unshift()) // Outputs: "Pi"
 ```
 
 ### Map
